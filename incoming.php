@@ -22,22 +22,22 @@ use \Plugin as Plugin;
 [pid] => 11983
 [ToCountry] => US
 [ToState] => CA
-[SmsMessageSid] => SMf3542d628de97b7f9426b83320c82af2
+[SmsMessageSid] => SM...
 [NumMedia] => 0
 [ToCity] => INVERNESS
 [FromZip] => 94028
-[SmsSid] => SMf3542d628de97b7f9426b83320c82af2
+[SmsSid] => SM...
 [FromState] => CA
 [SmsStatus] => received
 [FromCity] => WOODSIDE
 [Body] => Test case
 [FromCountry] => US
-[To] => +14152369881
+[To] => +1415...
 [ToZip] => 94937
 [NumSegments] => 1
-[MessageSid] => SMf3542d628de97b7f9426b83320c82af2
-[AccountSid] => ACf2b628fa4a732bfa6f928e66f9199d1e
-[From] => +16505295666
+[MessageSid] => SM...
+[AccountSid] => AC...
+[From] => +1650...
 [ApiVersion] => 2010-04-01
 )
 
@@ -62,7 +62,7 @@ use \Plugin as Plugin;
    [value] => Array
    )
     [0] => Thank you! Your appointment has been confirmed.
-    [1] => Please contact 650-736-2743 to reschedule.
+    [1] => Please contact 650-... to reschedule.
   )
 )
 */
