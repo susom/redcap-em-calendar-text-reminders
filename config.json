@@ -1,0 +1,139 @@
+{
+  "name": "Calendar Text Reminders",
+
+  "namespace": "Stanford\\CalendarTextReminders",
+
+  "description": "Module scrapes calendar to send reminder texts for upcoming appointments",
+
+  "authors": [
+    {
+      "name": "Jae Lee",
+      "email": "jael@stanford.edu",
+      "institution": "Stanford University"
+    }
+  ],
+  "permissions": [
+    ""
+  ],
+  "links": {
+    "project": [
+      {
+        "name": "SMS Cron",
+        "icon": "report",
+        "url": "calendar_sms_cron.php"
+      }
+    ]
+  },
+  "crons": [
+    {
+      "cron_name": "cron-cal-reminder",
+      "cron_description": "Cron that runs daily to do Y",
+      "method": "startCron",
+      "cron_frequency": "86400",
+      "cron_max_run_time": "60"
+    }
+  ],
+  "system-settings": [
+  ],
+
+  "project-settings": [
+    {
+      "key": "twilio-sid",
+      "name": "Twilio SID",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "key": "twilio-token",
+      "name": "Twilio token",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "key": "twilio-number",
+      "name": "Twilio Number",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "key": "sms-phone-field",
+      "name": "Field that holds the phone number to text",
+      "required": true,
+      "type": "field-list",
+      "default": "sms_phone"
+    },
+    {
+      "key": "sms-inactive-field",
+      "name": "Field to check for inactive status",
+      "required": true,
+      "type": "field-list",
+      "default": "sms_stop_text"
+    },
+    {
+      "key": "sms-timestamp",
+      "name": "Field to enter sms timestamp",
+      "required": true,
+      "type": "field-list",
+      "default": "sms_timestamp"
+    },
+    {
+      "key": "sms-status",
+      "name": "Field to enter sms status",
+      "required": true,
+      "type": "field-list",
+      "default": "sms_status"
+    },
+    {
+      "key": "sms-status-event",
+      "name": "Select the event where the sms-status/sms-phone field are.",
+      "required": true,
+      "type": "event-list"
+    },
+    {
+      "key": "event-group",
+      "name": "<b>Event group</b><br>Group of events on which to apply set of rules",
+      "required": true,
+      "type": "sub_settings",
+      "repeatable": true,
+      "sub_settings":[
+        {
+          "key": "event-list",
+          "name": "<b>Event List</b><br>List of event names on which to apply these set of rules.<br>For example: <br>baseline_arm_1<br>event_1_arm_1<br><br>If applying to all events, leave empty.<br>If applying to 'AdHoc' event, enter 'adhoc'",
+          "type": "textarea"
+        },
+        {
+          "key": "text-message",
+          "name": "<b>Text Message</b><br>Enter the text message you want sent for this event group.<br>[topline] reports the first line of the Calendar note<br>[date] reports the Calendar date<br>[time] reports the Calendar time",
+          "required": true,
+          "type": "textarea"
+        },
+        {
+          "key": "date-offset",
+          "name": "<b>Date offset</b><br>How many days prior to date found in calendar should the text reminder be sent?",
+          "required": true,
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "key": "text-back",
+      "name": "<b>Reply texts</b><br>Specify the response to reply texts",
+      "required": true,
+      "type": "sub_settings",
+      "repeatable": true,
+      "sub_settings":[
+        {
+          "key": "reply-request",
+          "name": "<b>Allowed replies from the user</b><br>For example, 'C' to indicate confirmation or 'R' to request reschedule.",
+          "type": "text"
+        },
+        {
+          "key": "return-message",
+          "name": "<b>Reply to incoming</b><br>If the previous text is received, what to reply. For example, 'Your confirmation has been received.' or 'Please call 415-555-1212 to reschedule.'",
+          "required": true,
+          "type": "textarea"
+        }
+      ]
+    }
+  ]
+}
