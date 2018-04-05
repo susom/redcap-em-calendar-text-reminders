@@ -20,13 +20,35 @@ class CalendarTextReminders extends \ExternalModules\AbstractExternalModule {
         //get all projects that are enabled for this module
         $enabled = ExternalModules::getEnabledProjects($this->PREFIX);
 
-        $url = $this->getUrl('calendar_sms_cron.php', false, true);
+        $url = $this->getUrl('CalendarSMSCron.php', false, true);
 
         while ($proj = db_fetch_assoc($enabled)) {
             $pid = $proj['project_id'];
+
+            //check that it's the right hour to send
+            $scheduled_hour = $this->getProjectSetting('scheduled-time', $pid);
+            $current_hour = date('H');
+            //Plugin::log( "HOUR ONLY:" .$current_hour);
+
+            //if not hour, continue
+            if ($scheduled_hour != $current_hour) continue;
+
+            //check that the config for project has the text trigger prefix defined
+            $trigger = $this->getProjectSetting('sms-trigger-prefix', $pid);
+            if (empty($trigger) || ($trigger == '')) {
+                Plugin::log($trigger, "ERROR", "No trigger entered.");
+                continue;
+            }
+
             $this_url = $url . '&pid=' . $pid;
+
+            //currently cannot make https calls locally.  In meantime, str replace with http
+            if ($_SERVER['DOCUMENT_ROOT'] == "/var/redcap/prod/web") {
+                $this_url = str_ireplace('https','http', $this_url);
+            }
             Plugin::log(($this_url), "URL IS ");
-            http_get($this_url);
+            $response = http_get($this_url);
+            //Plugin::log($response, "DEBUG", "RESPONSE");
         }
 
     }
@@ -105,7 +127,8 @@ class CalendarTextReminders extends \ExternalModules\AbstractExternalModule {
                     }
 
 
-                    list ($status, $fixed_text) = $event_group->fixTextMessage($entry);
+
+                    list ($status, $fixed_text) = $event_group->fixTextMessage($entry,$settings['sms-trigger-prefix']['value']);
 
                     //check status to see if text should still be sent
                     if ($status) {

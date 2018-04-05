@@ -145,7 +145,6 @@ class SmsRecord
 
         $data = array(
             REDCap::getRecordIdField() => $this->record_id,
-            //"record_id" => $this->record_id,
             'redcap_event_name' => $status_event_name,
             $this->status_name  => implode("\n", $msg),
             $this->timestamp_name => date("Y-m-d H:i:s")
@@ -156,8 +155,6 @@ class SmsRecord
 
     public static function saveData($pid, $data)
     {
-        //print "<br><br>SAVING DATA " . $pid;
-
         $response = REDCap::saveData($pid, 'json', json_encode(array($data)));
         //print "<pre>SAVING THIS result" . print_r(json_encode(array($data)), true) . "</pre>";
         //Plugin::log($response, "DEBUG", "Save Response for count");

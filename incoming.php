@@ -83,11 +83,6 @@ $from = $_POST['From'];
 $pid = $_REQUEST['pid'];
 $body = isset($_POST['Body']) ? $_POST['Body'] : '';
 
-//xxyjl: for testing
-//$from = '+16505295666';
-//$body = 'C';
-//xxyjl: end
-
 $from_10 = substr($from, -10);
 //\Plugin::log($_REQUEST, "DEBUG", "REQUEST");
 
@@ -110,16 +105,13 @@ $msg[] = "---- " . date("Y-m-d H:i:s") . " ----";
 switch ($body) {
     case null:
         $msg[] = "Received a null text from ". $from_10;
-//        echo '$body is NULL';
         break;
     case '':
-        //echo '$body has no value or is emtpy';
         $msg[] = "Received an empty text from ". $from_10;
         break;
     case 'STOP':
         //Default behavior when stop is received
-        //echo "STOPPING";
-        $msg[] = "STOP text was received. 'Stop sending SMS...' has been checked.";
+         $msg[] = "STOP text was received. 'Stop sending SMS...' has been checked.";
         $reply_txt = "We have received a STOP text from phone number: " . $from_10 . ".\n" .
             "We have set the record as inactive and will no longer send texts to this number.";
         //check if inactive checkbox exists first

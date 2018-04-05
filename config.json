@@ -20,16 +20,16 @@
       {
         "name": "SMS Cron",
         "icon": "report",
-        "url": "calendar_sms_cron.php"
+        "url": "CalendarSMSCron.php"
       }
     ]
   },
   "crons": [
     {
       "cron_name": "cron-cal-reminder",
-      "cron_description": "Cron that runs daily to do Y",
+      "cron_description": "Cron that runs hourly to send emails a prefix amount in advance",
       "method": "startCron",
-      "cron_frequency": "86400",
+      "cron_frequency": "3600",
       "cron_max_run_time": "60"
     }
   ],
@@ -37,6 +37,12 @@
   ],
 
   "project-settings": [
+    {
+      "key":"scheduled-time",
+      "name":"Enter the hour that you want to send the email. Enter just the hour (in 24 hour format)<br> Enter 12 for noon,13 for 1pm etc.",
+      "required":true,
+      "type": "text"
+    },
     {
       "key": "twilio-sid",
       "name": "Twilio SID",
@@ -84,11 +90,12 @@
       "default": "sms_status"
     },
     {
-      "key": "sms-status-event",
-      "name": "Select the event where the sms-status/sms-phone field are.",
+      "key": "sms-trigger-prefix",
+      "name": "Enter the triggering prefix in the calendar note to signal a text is to be sent.<br>Only text prepended with this text on the first line of the calendar will be sent.",
       "required": true,
-      "type": "event-list"
+      "type": "text"
     },
+
     {
       "key": "event-group",
       "name": "<b>Event group</b><br>Group of events on which to apply set of rules",

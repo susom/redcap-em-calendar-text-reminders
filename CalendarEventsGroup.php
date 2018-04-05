@@ -64,7 +64,7 @@ class CalendarEventsGroup {
      * Convert [topline], [date] [time] with information found in tcalendar
      * @param $entry
      */
-    function fixTextMessage($entry) {
+    function fixTextMessage($entry, $trigger) {
         $status = true;
 
         $event_time = $entry['event_time'];
@@ -81,8 +81,11 @@ class CalendarEventsGroup {
             $notes = $entry['notes'];
             $first_line = strtok($notes, PHP_EOL);
 
-            //confirm $first_line is prepended with "TEXT" (safeguard to prevent inadvertent sends
-            $prefix_exists = preg_match_all('/TEXT:(.*)/', $first_line, $match, PREG_SET_ORDER, 0);
+
+            $re = '/'.$trigger.'(.*)/';
+
+            //confirm $first_line is prepended with entered prefix (safeguard to prevent inadvertent sends
+            $prefix_exists = preg_match_all($re, $first_line, $match, PREG_SET_ORDER, 0);
 
             if ($prefix_exists) {
                 //Plugin::log($match,"DEBUG", "MATCHED");
@@ -90,7 +93,7 @@ class CalendarEventsGroup {
             } else {
                 //there was no prefix.  log that SMS was not sent because no prefix was found
                 $status = false;
-                $template = "The message was not prepended with 'TEXT:': " . $first_line;
+                $template = "The message was not prepended with ". $trigger.": " . $first_line;
             }
         }
 
