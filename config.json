@@ -27,7 +27,7 @@
   "crons": [
     {
       "cron_name": "cron-cal-reminder",
-      "cron_description": "Cron that runs hourly to send emails a prefix amount in advance",
+      "cron_description": "Cron that runs hourly to send text based on tagged entries in calendar",
       "method": "startCron",
       "cron_frequency": "3600",
       "cron_max_run_time": "60"
