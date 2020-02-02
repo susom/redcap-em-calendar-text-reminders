@@ -22,7 +22,8 @@ class CalendarTextReminders extends \ExternalModules\AbstractExternalModule {
 
         $url = $this->getUrl('CalendarSMSCron.php', false, true);
 
-        while ($proj = db_fetch_assoc($enabled)) {
+        //while ($proj = db_fetch_assoc($enabled)) {
+        while($proj = $enabled->fetch_assoc()){
             $pid = $proj['project_id'];
 
             //check that it's the right hour to send
@@ -46,7 +47,7 @@ class CalendarTextReminders extends \ExternalModules\AbstractExternalModule {
             if ($_SERVER['DOCUMENT_ROOT'] == "/var/redcap/prod/web") {
                 $this_url = str_ireplace('https','http', $this_url);
             }
-            Plugin::log(($this_url), "URL IS ");
+            //Plugin::log(($this_url), "URL IS ");
             $response = http_get($this_url);
             //Plugin::log($response, "DEBUG", "RESPONSE");
         }

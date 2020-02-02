@@ -86,6 +86,7 @@ class textManager
 
 
     /**
+     * TODO: NOT HANDLING / NOT EXPOSED IN CONFIG
      * Delete the Twilio back-end and front-end log of a given SMS (will try every second for up to 30 seconds)
      * @param $sid
      * @return bool
